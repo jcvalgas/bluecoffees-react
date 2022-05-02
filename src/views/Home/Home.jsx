@@ -1,8 +1,8 @@
 import './Home.css';
-import logoblue from '../assets/logoblue.png';
-import sacola_site from '../assets/icons/sacola_site.png';
+import logoblue from 'assets/logoblue.png';
+import sacola_site from 'assets/icons/sacola_site.png';
 
-import CoffeeLista from './CoffeeLista.jsx';
+import CoffeeLista from 'components/CoffeeLista/CoffeeLista.jsx'
 
 function Home() {
   return (

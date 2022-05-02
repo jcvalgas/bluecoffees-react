@@ -1,6 +1,6 @@
 import './CoffeeLista.css';
 
-import {coffees} from '../mocks/coffee.js';
+import {coffees} from 'mocks/coffee.js';
 import { useState } from 'react';
 
 function CoffeeLista() {
