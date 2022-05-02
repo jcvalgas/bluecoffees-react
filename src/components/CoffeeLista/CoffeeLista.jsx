@@ -26,6 +26,8 @@ function CoffeeLista() {
         coffee={coffee}
         quantidadeSelecionada={coffeeSelecionado[index]}
         index={index}
+        onAdd={index => adicionarItem(index)}
+        onRemove={index => removerItem(index)}
         />
       )}
     </div>
