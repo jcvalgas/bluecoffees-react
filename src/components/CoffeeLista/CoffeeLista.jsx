@@ -21,7 +21,12 @@ function CoffeeLista() {
   return (
     <div className="CoffeeLista">
       {coffees.map((coffee, index) => 
-        <CoffeeListaItem />
+        <CoffeeListaItem 
+        key={`CoffeeListaItem-${index}`}
+        coffee={coffee}
+        quantidadeSelecionada={coffeeSelecionado[index]}
+        index={index}
+        />
       )}
     </div>
   )
