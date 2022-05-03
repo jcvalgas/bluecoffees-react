@@ -8,6 +8,6 @@ const CoffeeContext = {
 };
 
 export const Api = {
-  baseURL: 'https://bluecoffees-server-production.up.railway.app/',
+  baseURL: 'https://bluecoffees-server-production.up.railway.app',
   ...CoffeeContext,
 };
