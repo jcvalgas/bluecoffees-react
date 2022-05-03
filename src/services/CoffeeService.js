@@ -6,17 +6,18 @@ const transformCoffee = (coffee) => {
   return {
     ...coffee,
     id: coffee._id,
-    titulo: coffee.sabor
+    titulo: coffee.sabor,
   };
 }
 
 const parseTransformLista = (response) => parseResponse(response).then(coffees => coffees.map(transformCoffee));
+const parseTransformItem = (response) => parseResponse(response).then(transformCoffee);
 
 export const CoffeeService = {
   getLista: () =>
     fetch(Api.coffeeLista(), { method: 'GET' }).then(parseTransformLista),
   getById: (id) =>
-    fetch(Api.coffeeById(id), { method: 'GET' }).then(parseResponse),
+    fetch(Api.coffeeById(id), { method: 'GET' }).then(parseTransformItem),
   create: () =>
     fetch(Api.createCoffee(), { method: 'POST' }).then(parseResponse),
   updateById: (id) =>

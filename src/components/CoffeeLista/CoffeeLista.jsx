@@ -33,6 +33,12 @@ function CoffeeLista() {
     setCoffees(response)
   }
 
+  const getCoffeeById = async (coffeeId) => {
+    const response = await CoffeeService.getById(coffeeId);
+    console.log(response);
+    setCoffeeModal(response)
+  }
+
   useEffect(() => {
     getLista();
   }, []);
@@ -47,7 +53,7 @@ function CoffeeLista() {
         index={index}
         onAdd={index => adicionarItem(index)}
         onRemove={index => removerItem(index)}
-        clickItem={(coffeeIndex) => setCoffeeModal(coffee)}
+        clickItem={(coffeId) => getCoffeeById(coffeId)}
         />
       )}
       {coffeeModal && <CoffeeDetalhesModal coffee={coffeeModal} closeModal={() => setCoffeeModal(false)} />}
