@@ -16,11 +16,11 @@ export const CoffeeService = {
   getLista: () =>
     fetch(Api.coffeeLista(), { method: 'GET' }).then(parseTransformLista),
   getById: (id) =>
-    fetch(Api.coffeeById(id), { method: 'GET' }).then(parseTransformLista),
+    fetch(Api.coffeeById(id), { method: 'GET' }).then(parseResponse),
   create: () =>
-    fetch(Api.createCoffee(), { method: 'POST' }).then(parseTransformLista),
+    fetch(Api.createCoffee(), { method: 'POST' }).then(parseResponse),
   updateById: (id) =>
-    fetch(Api.updateCoffeeById(id), { method: 'PUT' }).then(parseTransformLista),
+    fetch(Api.updateCoffeeById(id), { method: 'PUT' }).then(parseResponse),
   deleteById: (id) =>
-    fetch(Api.deleteCoffeeByid(id), { method: 'DELETE' }).then(parseTransformLista),
+    fetch(Api.deleteCoffeeByid(id), { method: 'DELETE' }).then(parseResponse),
 };
