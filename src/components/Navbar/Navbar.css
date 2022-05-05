@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "Humble\ Cafe";
-    src: url(assets/fonts/Humble\ Cafe.ttf) format("truetype");
+  font-family: 'Humble\ Cafe';
+  src: url(assets/fonts/Humble\ Cafe.ttf) format('truetype');
 }
 
 .Header {
@@ -73,6 +73,11 @@
   .Header {
     max-width: 320px;
   }
+  .row {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -84,7 +89,25 @@
     column-gap: 20px;
   }
 
+  .Logo {
+    width: 100%;
+  }
+
   .Logo__titulo {
     font-size: 1.5em;
   }
+}
+
+.Opcoes {
+  display: flex;
+  align-items: center;
+}
+
+.Coffee {
+  background: none;
+  border: none;
+}
+
+.Coffee__icone {
+  cursor: pointer;
 }
