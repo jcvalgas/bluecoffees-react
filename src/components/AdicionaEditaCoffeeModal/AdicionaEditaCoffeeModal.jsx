@@ -75,6 +75,8 @@ function AdicionaEditaCoffeeModal({
     canDisableButtom();
   });
 
+  console.log(mode)
+
   return (
     <Modal closeModal={closeModal}>
       <div className="AdicionaCoffeeModal">
@@ -141,7 +143,7 @@ function AdicionaEditaCoffeeModal({
             disabled={canDisable}
             onClick={handleSend}
           >
-            {ActionMode.ATUALIZAR === mode ? 'Enviar' : 'Atualizar'}
+            {ActionMode.NORMAL === mode ? 'Enviar' : 'Atualizar'}
           </button>
         </form>
       </div>

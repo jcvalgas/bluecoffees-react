@@ -3,7 +3,7 @@ import logoblue from 'assets/logoblue.png';
 import coffee_add from "assets/icons/coffee_add.png"
 import coffee_edit from "assets/icons/coffee_edit.png"
 import sacola_site from 'assets/icons/sacola_site.png';
-import { ActionMode } from 'constants';
+import { ActionMode } from 'constants/index.js';
 
 function Navbar({createCoffee, updateCoffee, mode}){
     return (

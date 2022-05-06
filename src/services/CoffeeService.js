@@ -20,8 +20,8 @@ export const CoffeeService = {
     fetch(Api.coffeeById(id), { method: 'GET' }).then(parseTransformItem),
   create: (coffee) =>
     fetch(Api.createCoffee(), { method: 'POST', body:JSON.stringify(coffee), mode: "cors", headers: {"Content-type":"application/json"}}).then(parseTransformItem),
-  updateById: (id) =>
-    fetch(Api.updateCoffeeById(id), { method: 'PUT' }).then(parseResponse),
+  updateById: (id, coffee) =>
+    fetch(Api.updateCoffeeById(id), { method: 'PUT', body: JSON.stringify(coffee), mode: "cors", headers: {"Content-type":"application/json"}}).then(parseResponse),
   deleteById: (id) =>
     fetch(Api.deleteCoffeeByid(id), { method: 'DELETE' }).then(parseResponse),
 };
