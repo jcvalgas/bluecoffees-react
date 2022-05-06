@@ -1,14 +1,19 @@
 import './SacolaModal.css';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'components/Modal/Modal';
 import { SacolaService } from 'services/SacolaService';
 import { CoffeeService } from 'services/CoffeeService';
 
 function SacolaModal({ closeModal }) {
+  
+  const navigate = useNavigate();
+
   const [lista, setLista] = useState([]);
 
   const purchase = async () => {
     await SacolaService.purchase();
+    navigate('/loading')
   };
 
   const handleClose = async () => {
@@ -19,7 +24,6 @@ function SacolaModal({ closeModal }) {
   const getListas = async () => {
     const coffeeLista = await CoffeeService.getLista();
     const sacolaLista = await SacolaService.getLista();
-
     const encontraNome = (id) => {
       const obj = coffeeLista.find((i) => i.id === id);
       return (obj && obj.titulo) ?? '';
