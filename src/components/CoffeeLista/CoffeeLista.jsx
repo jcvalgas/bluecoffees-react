@@ -5,7 +5,7 @@ import CoffeeDetalhesModal from 'components/CoffeeDetalhesModal/CoffeeDetalhesMo
 import { CoffeeService } from 'services/CoffeeService.js'
 import {ActionMode} from "constants/index.js"
 
-function CoffeeLista({coffeeCriado, coffeeEditado, mode, updateCoffee, deleteCoffee}) {
+function CoffeeLista({coffeeCriado, coffeeEditado, coffeeRemovido, mode, updateCoffee, deleteCoffee}) {
 
   const [coffees, setCoffees] = useState([]);
   const [coffeeSelecionado, setCoffeeSelecionado] = useState({});
@@ -57,7 +57,7 @@ function CoffeeLista({coffeeCriado, coffeeEditado, mode, updateCoffee, deleteCof
 
   useEffect(() => {
     getLista();
-  }, [coffeeEditado]);
+  }, [coffeeEditado, coffeeRemovido]);
 
   return (
     <div className="CoffeeLista">

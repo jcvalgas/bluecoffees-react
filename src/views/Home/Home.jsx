@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CoffeeLista from 'components/CoffeeLista/CoffeeLista.jsx'
 import Navbar from 'components/Navbar/Navbar.jsx';
 import AdicionaEditaCoffeeModal from 'components/AdicionaEditaCoffeeModal/AdicionaEditaCoffeeModal';
+import DeleteCoffeeModal from 'components/DeleteCoffeeModal/DeleteCoffeeModal';
 import { ActionMode } from 'constants/index.js';
 
 function Home() {
@@ -11,6 +12,7 @@ function Home() {
   const [coffeeParaEditar, setCoffeeParaEditar] = useState();
   const [coffeeEditado, setCoffeeEditado] = useState()
   const [coffeeParaDeletar, setCoffeeParaDeletar] = useState();
+  const [coffeeRemovido, setCoffeeRemovido] = useState();
   const [modoAtual, setModoAtual] = useState(ActionMode.NORMAL);
 
   const handleActions = (action) => {
@@ -39,10 +41,18 @@ function Home() {
     <div className="Home">
       <Navbar mode={modoAtual} createCoffee={() => setCanShowAdicionaCoffeeModal(true)} updateCoffee={() => handleActions(ActionMode.ATUALIZAR)} deleteCoffee={() => handleActions(ActionMode.DELETAR)}/>
       <div className="Home__container">
-        <CoffeeLista mode={modoAtual} coffeeCriado={coffeeParaAdicionar} coffeeEditado={coffeeEditado} deleteCoffee={handleDeleteCoffee} updateCoffee={handleUpdateCoffee} />
+        <CoffeeLista mode={modoAtual} coffeeCriado={coffeeParaAdicionar} coffeeEditado={coffeeEditado} deleteCoffee={handleDeleteCoffee} coffeeRemovido={coffeeRemovido} updateCoffee={handleUpdateCoffee} />
         {
           canShowAdicionaCoffeeModal &&
           (<AdicionaEditaCoffeeModal mode={modoAtual} onCreateCoffee={(coffee) => setCoffeeParaAdicionar(coffee)} onUpdateCoffee={(coffee) => setCoffeeEditado(coffee)} coffeeToUpdate={coffeeParaEditar} coffeeToDelete={coffeeParaDeletar} closeModal={handleCloseModal} />)
+        }
+        {
+          coffeeParaDeletar &&
+          <DeleteCoffeeModal 
+            coffeeParaDeletar={coffeeParaDeletar}
+            closeModal={handleCloseModal}
+            onDeleteCoffee={(coffee) => setCoffeeRemovido(coffee)}
+          />
         }
       </div>
     </div>
