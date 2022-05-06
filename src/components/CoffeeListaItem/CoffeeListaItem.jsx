@@ -9,7 +9,7 @@ function CoffeeListaItem({coffee, quantidadeSelecionada, index, onAdd, onRemove,
   }
   const removeButton = (canRender, index) => Boolean(canRender) && (<button className="Acoes__remover" disabled={mode !== ActionMode.NORMAL} onClick={(e) => {e.stopPropagation(); onRemove(index);}}>remover</button>)
   return (
-    <div className="CoffeeListaItem" onClick={() => clickItem(coffee.id)}>
+    <div className={`CoffeeListaItem ${mode !== ActionMode.NORMAL && 'CoffeeListaItem--disable'}`} onClick={() => clickItem(coffee.id)}>
     {badgeCounter(quantidadeSelecionada, index)}
     {badgeAction(mode !== ActionMode.NORMAL)}
     <div>

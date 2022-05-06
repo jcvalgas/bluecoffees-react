@@ -1,11 +1,11 @@
 import './CoffeeLista.css';
-
+import { useEffect, useState, useCallback } from 'react';
 import CoffeeListaItem from 'components/CoffeeListaItem/CoffeeListaItem';
 import CoffeeDetalhesModal from 'components/CoffeeDetalhesModal/CoffeeDetalhesModal';
-import { useEffect, useState } from 'react';
 import { CoffeeService } from 'services/CoffeeService.js'
+import {ActionMode} from "constants/index.js"
 
-function CoffeeLista({coffeeCriado, mode}) {
+function CoffeeLista({coffeeCriado, mode, updateCoffee, deleteCoffee}) {
 
   const [coffees, setCoffees] = useState([]);
   const [coffeeSelecionado, setCoffeeSelecionado] = useState({});
@@ -28,18 +28,32 @@ function CoffeeLista({coffeeCriado, mode}) {
 
   const getCoffeeById = async (coffeeId) => {
     const response = await CoffeeService.getById(coffeeId);
-    console.log(response);
-    setCoffeeModal(response)
+    const mapper = {
+      [ActionMode.NORMAL] : () => setCoffeeModal(response),
+      [ActionMode.ATUALIZAR]: () => updateCoffee(response),
+      [ActionMode.DELETAR]: () => deleteCoffee(response)
+    };
+
+    mapper[mode]();
   }
 
-  const adicionaCoffeeNaLista = (coffee) => {
-    const lista = [...coffees, coffee];
-    setCoffees(lista);
-  };
+  const adicionaCoffeeNaLista = useCallback(
+    (coffee) => {
+      const lista = [...coffees, coffee];
+      setCoffees(lista);
+    },
+    [coffees]
+  );
+    
 
   useEffect(() => {
-    if(coffeeCriado) adicionaCoffeeNaLista(coffeeCriado)
-  }, [coffeeCriado])
+    if(
+      coffeeCriado &&
+      !coffees.map(({id}) => id).includes(coffeeCriado.id)
+    ) {
+      adicionaCoffeeNaLista(coffeeCriado)
+    } 
+  }, [adicionaCoffeeNaLista ,coffeeCriado, coffees])
 
   useEffect(() => {
     getLista();

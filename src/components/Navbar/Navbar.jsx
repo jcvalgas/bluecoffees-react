@@ -20,10 +20,10 @@ function Navbar({createCoffee, updateCoffee, mode}){
           </div>
           <div className="Header__opcoes Opcoes">
             <button type="button" className={`Opcoes__coffee Coffee ${mode === ActionMode.ATUALIZAR && "Coffee-ativo"}`} onClick={() => updateCoffee()}>
-              <img src={coffee_edit} height="50px" alt="Icone editar café" className="Coffee__icone" />
+              <img src={coffee_edit} height="56px" alt="Icone editar café" className="Coffee__icone" />
             </button>
             <button type="button" className="Opcoes__coffee Coffee" onClick={() => createCoffee()}>
-              <img src={coffee_add} height="50px" alt="Icone adicionar café" className="Coffee__icone" />
+              <img src={coffee_add} height="56px" alt="Icone adicionar café" className="Coffee__icone" />
             </button>
             <div className="Opcoes__sacola Sacola">
               <img

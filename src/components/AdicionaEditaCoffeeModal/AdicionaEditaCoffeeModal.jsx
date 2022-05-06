@@ -2,56 +2,84 @@ import './AdicionaEditaCoffeeModal.css';
 import { useState, useEffect } from 'react';
 import { CoffeeService } from 'services/CoffeeService';
 import Modal from 'components/Modal/Modal.jsx';
+import { ActionMode } from 'constants/index.js';
 
-function AdicionaEditaCoffeeModal({ closeModal, onCreateCoffee }) {
+function AdicionaEditaCoffeeModal({
+  closeModal,
+  onCreateCoffee,
+  mode,
+  coffeeToUpdate,
+  onUpdateCoffee,
+}) {
   const form = {
-    preco: '',
-    sabor: '',
-    descricao: '',
-    foto: '',
+    preco: coffeeToUpdate?.preco ?? '',
+    sabor: coffeeToUpdate?.sabor ?? '',
+    descricao: coffeeToUpdate?.descricao ?? '',
+    foto: coffeeToUpdate?.foto ?? '',
   };
 
   const [state, setState] = useState(form);
   const [canDisable, setCanDisable] = useState(true);
-  
+
   const canDisableButtom = () => {
-      const response = !Boolean(
-          state.descricao.length
-          && state.foto.length
-          && state.sabor.length
-          && state.preco.length  
-        )
-      setCanDisable(response)
-  }
+    const response = !Boolean(
+      state.descricao.length &&
+        state.foto.length &&
+        state.sabor.length &&
+        String(state.preco).length,
+    );
+    setCanDisable(response);
+  };
 
   const handleChange = (e, name) => {
     setState({ ...state, [name]: e.target.value });
   };
 
-  const createCoffee = async () => {
-      const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split('\\').pop();
-      const {sabor, descricao, preco, foto} = state;
-      const coffee = {
-          sabor,
-          descricao,
-          preco,
-          foto: `./assets/images/${renomeiaCaminhoFoto(foto)}`
-      }
+  const handleSend = async () => {
+    const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split(/\\|\//).pop();
+    const { sabor, descricao, preco, foto } = state;
+    const coffee = {
+      ...(coffeeToUpdate && { _id: coffeeToUpdate?.id }),
+      sabor,
+      descricao,
+      preco,
+      foto: `./assets/images/${renomeiaCaminhoFoto(foto)}`,
+    };
+    const serviceCall = {
+      [ActionMode.NORMAL]: () => CoffeeService.create(coffee),
+      [ActionMode.ATUALIZAR]: () =>
+        CoffeeService.updateById(coffeeToUpdate?.id, coffee),
+    };
 
-      const response = await CoffeeService.create(coffee);
-      onCreateCoffee(response)
-      closeModal();
-  }
+    const response = await serviceCall[mode]();
+
+    const actionResponse = {
+      [ActionMode.NORMAL]: () => onCreateCoffee(response),
+      [ActionMode.ATUALIZAR]: () => onUpdateCoffee(response),
+    };
+
+    actionResponse[mode]();
+
+    const reset = {
+      preco: '',
+      descricao: '',
+      sabor: '',
+      foto: '',
+    };
+
+    setState(reset);
+    closeModal();
+  };
 
   useEffect(() => {
-      canDisableButtom();
+    canDisableButtom();
   });
 
   return (
     <Modal closeModal={closeModal}>
       <div className="AdicionaCoffeeModal">
         <form autoComplete="off">
-          <h2>Adicionar ao Cardápio</h2>
+          <h2>{ActionMode.ATUALIZAR === mode ? 'Atualizar' : 'Adicionar ao'} Cardápio</h2>
           <div>
             <label htmlFor="preco" className="AdicionaCoffeeModal__text">
               Preço:
@@ -103,7 +131,6 @@ function AdicionaEditaCoffeeModal({ closeModal, onCreateCoffee }) {
               type="file"
               className="AdicionaCoffeeModal__foto"
               id="foto"
-              value={state.foto}
               accept="image/png, image/gif, image/jpeg"
               onChange={(e) => handleChange(e, 'foto')}
             />
@@ -112,8 +139,9 @@ function AdicionaEditaCoffeeModal({ closeModal, onCreateCoffee }) {
             type="button"
             className="AdicionaCoffeeModal__enviar"
             disabled={canDisable}
-            onClick={createCoffee}>
-            Enviar            
+            onClick={handleSend}
+          >
+            {ActionMode.ATUALIZAR === mode ? 'Enviar' : 'Atualizar'}
           </button>
         </form>
       </div>
