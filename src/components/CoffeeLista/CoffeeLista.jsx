@@ -5,18 +5,11 @@ import CoffeeDetalhesModal from 'components/CoffeeDetalhesModal/CoffeeDetalhesMo
 import { useEffect, useState } from 'react';
 import { CoffeeService } from 'services/CoffeeService.js'
 
-function CoffeeLista() {
+function CoffeeLista({coffeeCriado}) {
 
   const [coffees, setCoffees] = useState([]);
   const [coffeeSelecionado, setCoffeeSelecionado] = useState({});
   const [coffeeModal, setCoffeeModal] = useState(false)
-
-  const coffee = {
-    titulo: 'Metropolitan Express',
-    descricao: 'tempor incididunt ut labore et dolore magna aliqua.',
-    foto: './assets/images/large-coffee_ccexpress.png',
-    preco: 10
-  }
 
   const adicionarItem = (coffeeIndex) => {
     const coffee = {[coffeeIndex]: Number(coffeeSelecionado[coffeeIndex] || 0) + 1};
@@ -38,6 +31,15 @@ function CoffeeLista() {
     console.log(response);
     setCoffeeModal(response)
   }
+
+  const adicionaCoffeeNaLista = (coffee) => {
+    const lista = [...coffees, coffee];
+    setCoffees(lista);
+  };
+
+  useEffect(() => {
+    if(coffeeCriado) adicionaCoffeeNaLista(coffeeCriado)
+  }, [coffeeCriado])
 
   useEffect(() => {
     getLista();

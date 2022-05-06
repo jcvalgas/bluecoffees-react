@@ -1,8 +1,9 @@
 import './AdicionaCoffeeModal.css';
 import { useState, useEffect } from 'react';
+import { CoffeeService } from 'services/CoffeeService';
 import Modal from 'components/Modal/Modal.jsx';
 
-function AdicionaCoffeeModal({ closeModal }) {
+function AdicionaCoffeeModal({ closeModal, onCreateCoffee }) {
   const form = {
     preco: '',
     sabor: '',
@@ -27,6 +28,20 @@ function AdicionaCoffeeModal({ closeModal }) {
     setState({ ...state, [name]: e.target.value });
   };
 
+  const createCoffee = async () => {
+      const renomeiaCaminhoFoto = (fotoPath) => fotoPath.split('\\').pop();
+      const {sabor, descricao, preco, foto} = state;
+      const coffee = {
+          sabor,
+          descricao,
+          preco,
+          foto: `./assets/images/${renomeiaCaminhoFoto(foto)}`
+      }
+
+      const response = await CoffeeService.create(coffee);
+      onCreateCoffee(response)
+      closeModal();
+  }
 
   useEffect(() => {
       canDisableButtom();
@@ -96,7 +111,8 @@ function AdicionaCoffeeModal({ closeModal }) {
           <button
             type="button"
             className="AdicionaCoffeeModal__enviar"
-            disabled={canDisable}>
+            disabled={canDisable}
+            onClick={createCoffee}>
             Enviar            
           </button>
         </form>
