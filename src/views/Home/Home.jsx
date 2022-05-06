@@ -37,7 +37,7 @@ function Home() {
   }
   return (
     <div className="Home">
-      <Navbar mode={modoAtual} createCoffee={() => setCanShowAdicionaCoffeeModal(true)} updateCoffee={() => handleActions(ActionMode.ATUALIZAR)}/>
+      <Navbar mode={modoAtual} createCoffee={() => setCanShowAdicionaCoffeeModal(true)} updateCoffee={() => handleActions(ActionMode.ATUALIZAR)} deleteCoffee={() => handleActions(ActionMode.DELETAR)}/>
       <div className="Home__container">
         <CoffeeLista mode={modoAtual} coffeeCriado={coffeeParaAdicionar} coffeeEditado={coffeeEditado} deleteCoffee={handleDeleteCoffee} updateCoffee={handleUpdateCoffee} />
         {

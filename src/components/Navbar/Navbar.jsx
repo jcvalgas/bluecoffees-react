@@ -1,11 +1,12 @@
 import './Navbar.css';
 import logoblue from 'assets/logoblue.png';
-import coffee_add from "assets/icons/coffee_add.png"
-import coffee_edit from "assets/icons/coffee_edit.png"
+import coffee_add from "assets/icons/coffee_add.png";
+import coffee_edit from "assets/icons/coffee_edit.png";
+import coffee_delete from "assets/icons/coffee_delete.png"
 import sacola_site from 'assets/icons/sacola_site.png';
 import { ActionMode } from 'constants/index.js';
 
-function Navbar({createCoffee, updateCoffee, mode}){
+function Navbar({createCoffee, updateCoffee, deleteCoffee, mode}){
     return (
         <div className="Home__header Header">
         <div className="row">
@@ -21,6 +22,9 @@ function Navbar({createCoffee, updateCoffee, mode}){
           <div className="Header__opcoes Opcoes">
             <button type="button" className={`Opcoes__coffee Coffee ${mode === ActionMode.ATUALIZAR && "Coffee-ativo"}`} onClick={() => updateCoffee()}>
               <img src={coffee_edit} height="56px" alt="Icone editar café" className="Coffee__icone" />
+            </button>
+            <button type="button" className={`Opcoes__coffee Coffee ${mode === ActionMode.DELETAR && "Coffee-deletar"}`} onClick={() => deleteCoffee()}>
+              <img src={coffee_delete} height="56px" alt="Icone deletar café" className="Coffee__icone" />
             </button>
             <button type="button" className="Opcoes__coffee Coffee" onClick={() => createCoffee()}>
               <img src={coffee_add} height="56px" alt="Icone adicionar café" className="Coffee__icone" />

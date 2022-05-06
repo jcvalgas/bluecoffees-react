@@ -5,11 +5,11 @@ function CoffeeListaItem({coffee, quantidadeSelecionada, index, onAdd, onRemove,
 
   const badgeCounter = (canRender, index) => Boolean(canRender) && (<span className="CoffeeListaItem__badge"> {quantidadeSelecionada} </span>);
   const badgeAction = (canRender) => {
-    if (canRender) return (<span className="CoffeeListaItem__tag">{mode}</span>)
+    if (canRender) return (<span className={`CoffeeListaItem__tag ${mode === ActionMode.DELETAR && 'CoffeeListaItem__tag-deletar'}`}>{mode}</span>)
   }
   const removeButton = (canRender, index) => Boolean(canRender) && (<button className="Acoes__remover" disabled={mode !== ActionMode.NORMAL} onClick={(e) => {e.stopPropagation(); onRemove(index);}}>remover</button>)
   return (
-    <div className={`CoffeeListaItem ${mode !== ActionMode.NORMAL && 'CoffeeListaItem--disable'}`} onClick={() => clickItem(coffee.id)}>
+    <div className={`CoffeeListaItem ${mode !== ActionMode.NORMAL && 'CoffeeListaItem--disable'} ${mode === ActionMode.DELETAR && 'CoffeeListaItem-deletar'}`} onClick={() => clickItem(coffee.id)}>
     {badgeCounter(quantidadeSelecionada, index)}
     {badgeAction(mode !== ActionMode.NORMAL)}
     <div>
