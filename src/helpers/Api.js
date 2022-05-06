@@ -7,7 +7,14 @@ const CoffeeContext = {
   deleteCoffeeByid: (id) => `${CoffeeContext.coffeeEndpoint()}/delete/${id}`,
 };
 
+const SacolaContext = {
+  getSacola: () => `${CoffeeContext.coffeeEndpoint()}/all-carrinho`,
+  createSacola: () => `${CoffeeContext.coffeeEndpoint()}/create-carrinho`,
+  purchase: () => `${CoffeeContext.coffeeEndpoint()}/finish-carrinho`,
+};
+
 export const Api = {
   baseURL: 'https://bluecoffees-server-production.up.railway.app',
   ...CoffeeContext,
+  ...SacolaContext,
 };

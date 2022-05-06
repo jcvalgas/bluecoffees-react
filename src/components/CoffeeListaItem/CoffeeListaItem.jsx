@@ -21,7 +21,7 @@ function CoffeeListaItem({coffee, quantidadeSelecionada, index, onAdd, onRemove,
         {removeButton(quantidadeSelecionada, index)}
       </div>
     </div>
-    <img className="CoffeeListaItem__foto" src={coffee.foto} />
+    <img className="CoffeeListaItem__foto" src={coffee.foto} alt={coffee.titulo}/>
   </div>
   );
 }

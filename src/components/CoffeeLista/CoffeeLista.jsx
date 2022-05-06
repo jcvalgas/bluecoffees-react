@@ -7,14 +7,29 @@ import {ActionMode} from "constants/index.js"
 
 function CoffeeLista({coffeeCriado, coffeeEditado, coffeeRemovido, mode, updateCoffee, deleteCoffee}) {
 
+  const selecionados = JSON.parse(localStorage.getItem('selecionados')) ?? {};
+
   const [coffees, setCoffees] = useState([]);
-  const [coffeeSelecionado, setCoffeeSelecionado] = useState({});
+  const [coffeeSelecionado, setCoffeeSelecionado] = useState(selecionados);
   const [coffeeModal, setCoffeeModal] = useState(false)
 
   const adicionarItem = (coffeeIndex) => {
     const coffee = {[coffeeIndex]: Number(coffeeSelecionado[coffeeIndex] || 0) + 1};
     setCoffeeSelecionado({...coffeeSelecionado, ...coffee});
   }
+
+  const setSelecionados = useCallback(() => {
+    if(!coffees.length) return
+
+    const entries = Object.entries(coffeeSelecionado);
+    const sacola = entries.map(arr => ({
+      coffeeId: coffees[arr[0]].id,
+      quantidade: arr[1]
+    }))
+
+    localStorage.setItem('sacola', JSON.stringify(sacola));
+    localStorage.setItem('selecionados', JSON.stringify(coffeeSelecionado));
+  }, [coffeeSelecionado, coffees])
 
   const removerItem = (coffeeIndex) => {
     const coffee = {[coffeeIndex]: Number(coffeeSelecionado[coffeeIndex] || 0) - 1};
@@ -59,6 +74,10 @@ function CoffeeLista({coffeeCriado, coffeeEditado, coffeeRemovido, mode, updateC
     getLista();
   }, [coffeeEditado, coffeeRemovido]);
 
+  useEffect(() => {
+    setSelecionados();
+  }, [setSelecionados, coffeeSelecionado])
+  
   return (
     <div className="CoffeeLista">
       {coffees.map((coffee, index) => 

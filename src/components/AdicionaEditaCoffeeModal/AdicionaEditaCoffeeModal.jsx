@@ -74,9 +74,7 @@ function AdicionaEditaCoffeeModal({
   useEffect(() => {
     canDisableButtom();
   });
-
-  console.log(mode)
-
+  
   return (
     <Modal closeModal={closeModal}>
       <div className="AdicionaCoffeeModal">

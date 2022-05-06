@@ -6,7 +6,7 @@ import coffee_delete from "assets/icons/coffee_delete.png"
 import sacola_site from 'assets/icons/sacola_site.png';
 import { ActionMode } from 'constants/index.js';
 
-function Navbar({createCoffee, updateCoffee, deleteCoffee, mode}){
+function Navbar({createCoffee, updateCoffee, deleteCoffee, mode, openBag}){
     return (
         <div className="Home__header Header">
         <div className="row">
@@ -29,7 +29,7 @@ function Navbar({createCoffee, updateCoffee, deleteCoffee, mode}){
             <button type="button" className="Opcoes__coffee Coffee" onClick={() => createCoffee()}>
               <img src={coffee_add} height="56px" alt="Icone adicionar café" className="Coffee__icone" />
             </button>
-            <div className="Opcoes__sacola Sacola">
+            <div className="Opcoes__sacola Sacola" onClick={openBag}>
               <img
                 width="45px"
                 src={sacola_site}
