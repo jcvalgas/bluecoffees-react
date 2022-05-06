@@ -1,5 +1,5 @@
 import './AdicionaCoffeeModal.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from 'components/Modal/Modal.jsx';
 
 function AdicionaCoffeeModal({ closeModal }) {
@@ -11,10 +11,26 @@ function AdicionaCoffeeModal({ closeModal }) {
   };
 
   const [state, setState] = useState(form);
+  const [canDisable, setCanDisable] = useState(true);
+  
+  const canDisableButtom = () => {
+      const response = !Boolean(
+          state.descricao.length
+          && state.foto.length
+          && state.sabor.length
+          && state.preco.length  
+        )
+      setCanDisable(response)
+  }
 
   const handleChange = (e, name) => {
     setState({ ...state, [name]: e.target.value });
   };
+
+
+  useEffect(() => {
+      canDisableButtom();
+  });
 
   return (
     <Modal closeModal={closeModal}>
@@ -26,6 +42,7 @@ function AdicionaCoffeeModal({ closeModal }) {
               Preço:
             </label>
             <input
+              required
               type="text"
               id="preco"
               placeholder="10,00"
@@ -38,6 +55,7 @@ function AdicionaCoffeeModal({ closeModal }) {
               Sabor:
             </label>
             <input
+              required
               type="text"
               id="sabor"
               placeholder="Citizen Express"
@@ -50,6 +68,7 @@ function AdicionaCoffeeModal({ closeModal }) {
               Descrição:
             </label>
             <input
+              required
               type="text"
               id="descricao"
               placeholder="Detalhe o produto"
@@ -65,6 +84,7 @@ function AdicionaCoffeeModal({ closeModal }) {
               {!state.foto.length ? 'Selecionar imagem' : state.foto}
             </label>
             <input
+              required
               type="file"
               className="AdicionaCoffeeModal__foto"
               id="foto"
@@ -73,11 +93,12 @@ function AdicionaCoffeeModal({ closeModal }) {
               onChange={(e) => handleChange(e, 'foto')}
             />
           </div>
-          <input
-            type="submit"
+          <button
+            type="button"
             className="AdicionaCoffeeModal__enviar"
-            value="Enviar"
-          />
+            disabled={canDisable}>
+            Enviar            
+          </button>
         </form>
       </div>
     </Modal>
