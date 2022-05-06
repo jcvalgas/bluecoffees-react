@@ -5,7 +5,7 @@ import CoffeeDetalhesModal from 'components/CoffeeDetalhesModal/CoffeeDetalhesMo
 import { useEffect, useState } from 'react';
 import { CoffeeService } from 'services/CoffeeService.js'
 
-function CoffeeLista({coffeeCriado}) {
+function CoffeeLista({coffeeCriado, mode}) {
 
   const [coffees, setCoffees] = useState([]);
   const [coffeeSelecionado, setCoffeeSelecionado] = useState({});
@@ -48,7 +48,8 @@ function CoffeeLista({coffeeCriado}) {
   return (
     <div className="CoffeeLista">
       {coffees.map((coffee, index) => 
-        <CoffeeListaItem 
+        <CoffeeListaItem
+        mode={mode} 
         key={`CoffeeListaItem-${index}`}
         coffee={coffee}
         quantidadeSelecionada={coffeeSelecionado[index]}

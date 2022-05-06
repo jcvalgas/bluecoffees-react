@@ -1,9 +1,9 @@
-import './AdicionaCoffeeModal.css';
+import './AdicionaEditaCoffeeModal.css';
 import { useState, useEffect } from 'react';
 import { CoffeeService } from 'services/CoffeeService';
 import Modal from 'components/Modal/Modal.jsx';
 
-function AdicionaCoffeeModal({ closeModal, onCreateCoffee }) {
+function AdicionaEditaCoffeeModal({ closeModal, onCreateCoffee }) {
   const form = {
     preco: '',
     sabor: '',
@@ -121,4 +121,4 @@ function AdicionaCoffeeModal({ closeModal, onCreateCoffee }) {
   );
 }
 
-export default AdicionaCoffeeModal;
+export default AdicionaEditaCoffeeModal;
