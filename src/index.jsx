@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM  from 'react-dom/client';
-import Home from 'views/Home/Home.jsx';
 import App from "./App.jsx"
 import 'assets/styles/main.css'
 
