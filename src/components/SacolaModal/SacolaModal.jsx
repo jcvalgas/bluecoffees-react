@@ -42,8 +42,6 @@ function SacolaModal({ closeModal }) {
     getListas();
   }, []);
 
-
-  console.log(lista);
   return (
     <Modal closeModal={handleClose}>
       <div className="SacolaModal">

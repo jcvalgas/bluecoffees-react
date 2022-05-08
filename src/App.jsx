@@ -10,7 +10,7 @@ function App() {
         <Route path="/loading" element={<Loading />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App;

@@ -10,7 +10,7 @@ function Loading() {
     localStorage.setItem('selecionados', '{}');
 
     setTimeout(() => {
-      navigate('/');
+      navigate("/");
     }, 3000);
   });
   return (
@@ -25,4 +25,4 @@ function Loading() {
   );
 }
 
-export default Loading();
+export default Loading;
